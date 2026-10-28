@@ -7,10 +7,51 @@
 ## 前提条件
 
 - 已安装 Claude Code
-- Python 3.10 以上，且 `python` 命令能在终端里直接运行
+- **Python 3.10 以上**（Windows 上命令是 `python`，macOS / Linux 上是 `python3`）
 - 能访问 `open.bigmodel.cn`
 
-> 如果终端里输入 `python` 没反应，说明它不在 PATH。装 Python 时勾选 "Add to PATH"，或把 `.mcp.json` 里的 `"command": "python"` 改成 Python 的完整路径（如 `C:\\Python311\\python.exe`）。
+> Windows 上如果终端里输入 `python` 没反应，说明它不在 PATH。装 Python 时勾选 "Add to PATH"，或把 `.mcp.json` 里的 `"command": "python"` 改成 Python 的完整路径（如 `C:\\Python311\\python.exe`）。
+
+---
+
+## macOS 用户注意（重要）
+
+macOS 默认**没有 `python` 命令**，而且系统自带的 `python3` 往往还是 3.9，不满足 3.10+ 的要求。不处理这两点，MCP 服务会启动失败，工具根本不会出现。
+
+### 1. 安装新版 Python
+
+```bash
+brew install python
+python3 --version   # 确认 >= 3.10
+```
+
+### 2. 安装依赖
+
+```bash
+python3 -m pip install mcp pillow
+```
+
+### 3. 修改 .mcp.json
+
+把这一行：
+
+```json
+"command": "python"
+```
+
+改成：
+
+```json
+"command": "python3"
+```
+
+### 4. 复制插件
+
+```bash
+cp -r read-image ~/.claude/skills/
+```
+
+后面的 Key 配置和验证步骤与 Windows 完全一致。
 
 ---
 
@@ -21,6 +62,8 @@
 ```bash
 pip install mcp pillow
 ```
+
+macOS / Linux 如果 `pip` 不存在，用 `pip3 install mcp pillow`。
 
 ### 2. 复制插件
 
@@ -100,6 +143,12 @@ read_image_doctor
 ```
 
 它会自动检查 Key、网络和可用模型，并告诉你问题在哪。
+
+**macOS 上工具完全不出现？** 依次检查：
+
+1. `.mcp.json` 里的 `command` 是否已改成 `python3`
+2. `python3 --version` 是否 ≥ 3.10
+3. `python3 -m pip show mcp` 是否装在了同一个 Python 下
 
 ---
 
