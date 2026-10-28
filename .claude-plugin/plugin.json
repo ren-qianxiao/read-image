@@ -1,0 +1,11 @@
+{
+  "name": "read-image",
+  "displayName": "read-image · 让纯文本模型看图",
+  "version": "0.1.0",
+  "description": "把图片 base64 编码后交给视觉模型识别，再把文字结果交回主模型使用。适用于自身没有视觉通道的模型。",
+  "author": {
+    "name": "汪昕皓"
+  },
+  "keywords": ["vision", "image", "base64", "multimodal", "glm", "zhipu"],
+  "license": "MIT"
+}
